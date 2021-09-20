@@ -52,25 +52,3 @@ def products(request):
 #     }
 #     return render(request, 'mainapp/products.html', context)
 
-
-def test(request):
-    context = {
-        'title': 'geekshop',
-        'header': 'Добро пожаловать на сайт',
-        'user': 'Сергей',
-        'date': 'Дата',
-        'products': [
-            {'name': 'Черный рюкзак Nike Heritage', 'price': '2 340,00 руб.'},
-            {'name': 'Черные туфли на платформе с 3 парами люверсов Dr Martens 1461 Bex', 'price': '13 590,00 руб.'},
-            {'name': 'Темно-синие широкие строгие брюки ASOS DESIGN', 'price': '2 890,00 руб.'},
-            {'name': 'Худи черного цвета с монограммами adidas Originals', 'price': '6 090,00 руб.'},
-            {'name': 'Синяя куртка The North Face', 'price': '23 725,00 руб.'},
-            {'name': 'Коричневый спортивный oversized-топ ASOS DESIGN', 'price': '3 390,00 руб.'},
-        ],
-        'products_sale': [
-            {'name': 'Красный шарф Adidas', 'price': '1 000,00 руб.'},
-            {'name': 'Белый классический костюм HugoBoss', 'price': '2 000,00 руб.'},
-        ]
-    }
-    return render(request, 'mainapp/test.html', context)
-
