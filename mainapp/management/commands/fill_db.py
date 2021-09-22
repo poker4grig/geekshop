@@ -39,7 +39,6 @@ class Command(BaseCommand):
             new_product = Product(**prod)
             new_product.save()
 
-        super_user = User.objects.create_superuser('sergey', 'poker4grig@yandex.ru', '123')
 
 
 
