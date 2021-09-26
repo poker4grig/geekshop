@@ -1,8 +1,8 @@
-from django.shortcuts import render
 import os
 
+from django.shortcuts import render
+
 from mainapp.models import ProductCategory, Product
-import json
 
 MODULE_DIR = os.path.dirname(__file__)
 

@@ -1,11 +1,9 @@
-import os, json
+import json
+import os
 
-from django.contrib.auth.models import AbstractUser
 from django.core.management.base import BaseCommand
-from django.contrib.auth.models import User
 
 from mainapp.models import ProductCategory, Product
-
 
 JSON_PATH = 'mainapp/fixtures/'
 
