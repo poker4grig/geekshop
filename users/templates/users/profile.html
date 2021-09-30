@@ -13,10 +13,10 @@
                     {% for message in messages %}
                         <div class="alert {% if message.tags == 'success' %} alert-success {% else %} alert-warning {% endif %} alert-dismissible fade show"
                              role="alert" style="margin-top: 50px;">
-                        {{ message }}
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
+                            {{ message }}
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
                         </div>
                     {% endfor %}
                 {% endif %}
@@ -69,7 +69,9 @@
                     </div>
                 </form>
             </div>
-            {% include 'baskets/baskets.html' %}
+            <div class="col-lg-5">
+                {% include 'baskets/baskets.html' %}
+            </div>
         </div>
     </div>
 {% endblock %}
