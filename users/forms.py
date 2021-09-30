@@ -32,6 +32,18 @@ class UserRegisterForm(UserCreationForm):
         for field_name, field in self.fields.items():
             field.widget.attrs['class'] = 'form-control py-4'
 
+    def clean_first_name(self):
+        data = self.cleaned_data['first_name']
+        if not data.isalpha():
+            raise forms.ValidationError('Поле "Имя" должно содержать только буквенные значения')
+        return data
+
+    def clean_last_name(self):
+        data = self.cleaned_data['last_name']
+        if not data.isalpha():
+            raise forms.ValidationError('Поле "Фамилия" должно содержать только буквенные значения')
+        return data
+
 
 class UserProfileForm(UserChangeForm):
     image = forms.ImageField(widget=forms.FileInput(), required=False)
@@ -54,4 +66,17 @@ class UserProfileForm(UserChangeForm):
         if data.size > 1024:
             raise forms.ValidationError('Файл слишком большой')
         return data
+
+    def clean_first_name(self):
+        data = self.cleaned_data['first_name']
+        if not data.isalpha():
+            raise forms.ValidationError('Поле "Имя" должно содержать только буквенные значения')
+        return data
+
+    def clean_last_name(self):
+        data = self.cleaned_data['last_name']
+        if not data.isalpha():
+            raise forms.ValidationError('Поле "Фамилия" должно содержать только буквенные значения')
+        return data
+
 
