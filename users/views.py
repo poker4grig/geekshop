@@ -56,19 +56,10 @@ def profile(request):
         else:
             messages.error(request, 'Профиль не сохранен!')
 
-    total_quantity = 0
-    total_summ = 0
-    baskets = Basket.objects.filter(user=request.user)
-    for basket in baskets:
-        total_quantity += basket.quantity
-        total_summ += basket.summ()
-
     context = {
         'title': 'Geekshop - Профайл',
         'form': UserProfileForm(instance=request.user),
-        'baskets': Basket.objects.filter(user=request.user),
-        'total_quantity': total_quantity,
-        'total_summ': total_summ
+        'baskets': Basket.objects.filter(user=request.user)
     }
     return render(request, 'users/profile.html', context)
 
