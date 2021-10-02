@@ -22,9 +22,4 @@ urlpatterns = [
     path('add/<int:product_id>/', basket_add, name='basket'),
     path('remove/<int:product_id>', basket_remove, name='basket_remove'),
     path('edit/<int:id>/<int:quantity>/', basket_edit, name='basket_edit'),
-
-#     path('baskets/', login, name='login'),
-#     path('register/', register, name='register'),
-#     path('profile/', profile, name='profile'),
-#     path('logout/', logout, name='logout'),
 ]
