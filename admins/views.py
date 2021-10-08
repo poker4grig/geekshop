@@ -1,6 +1,6 @@
 from django.contrib.auth.decorators import user_passes_test
 from django.http import HttpResponseRedirect
-from django.shortcuts import render
+from django.shortcuts import get_object_or_404, render
 from django.urls import reverse_lazy
 from django.utils.decorators import method_decorator
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView
@@ -8,6 +8,7 @@ from django.views.generic import ListView, CreateView, UpdateView, DeleteView
 from admins.forms import UserAdminRegisterForm, UserAdminProfileForm
 from geekshop.mixin import CustomDispatchMixin
 from users.models import User
+from mainapp.models import Product, ProductCategory
 
 
 def index(request):
@@ -67,5 +68,30 @@ class UserDeleteView(DeleteView):
             self.object.is_active = True
         self.object.save()
         return HttpResponseRedirect(self.get_success_url())
+######################################################################################################################
 
 
+class CategoryListView(ListView):
+    model = ProductCategory
+    template_name = 'admins/admin-categories-read.html'
+    context_object_name = 'categories'
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super(CategoryListView, self).get_context_data(**kwargs)
+        context['title'] = 'Админка | Категории товаров'
+        return context
+
+
+class CategoriesCreateView(CreateView):
+    model = ProductCategory
+    template_name = 'admins/admin-categories-create.html'
+
+
+class CategoriesUpdateView(UpdateView):
+    model = ProductCategory
+    template_name = 'admins/admin-categories-update-delete.html'
+
+
+class CategoriesDeleteView(DeleteView):
+    model = ProductCategory
+    template_name = 'admins/admin-categories-read.html'
