@@ -20,6 +20,9 @@
                         <a href="{% url 'mainapp:category' category.id %}" class="list-group-item">{{ category }}</a>
                     {% endfor %}
                 </div>
+                <div class="clear-category">
+                        <a href="{{ clear_categorys }}" class="list-group-item">Очистить категории</a>
+                </div>
 
             </div>
             <!-- /.col-lg-3 -->
@@ -43,6 +46,10 @@
                         </div>
                         <div class="carousel-item">
                             <img class="d-block img-fluid" src="{% static 'vendor/img/slides/slide-3.jpg' %}"
+                                 alt="Third slide">
+                        </div>
+                        <div class="carousel-item">
+                            <img class="d-block img-fluid" src="{% static 'vendor/img/slides/slide-4.jpg' %}"
                                  alt="Third slide">
                         </div>
                     </div>

@@ -18,7 +18,7 @@ def index(request):
 def products(request, category_id=None, page_id=1):
     products = Product.objects.filter(category_id=category_id) if category_id is not None else Product.objects.all()
 
-    paginator = Paginator(products, per_page=2)
+    paginator = Paginator(products, per_page=3)
     try:
         product_paginator = paginator.page(page_id)
     except PageNotAnInteger as e:
@@ -29,5 +29,6 @@ def products(request, category_id=None, page_id=1):
     context = {
         'title': 'Каталог',
         'categorys': ProductCategory.objects.all(),
+        'clear_categorys': '/products/',
         'products': product_paginator}
     return render(request, 'mainapp/products.html', context)
