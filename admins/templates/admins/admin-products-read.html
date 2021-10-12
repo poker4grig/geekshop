@@ -4,7 +4,7 @@
     <div id="layoutSidenav_content">
         <main>
             <div class="container-fluid">
-                <h1 class="mt-4">Категории</h1>
+                <h1 class="mt-4">Продукты</h1>
                 <div class="card mb-4">
                     <div class="card-header">
                         <i class="fas fa-table mr-1"></i>
@@ -17,21 +17,30 @@
                                 <tr>
                                     <th>Название</th>
                                     <th>Описание</th>
+                                    <th>Цена</th>
+                                    <th>Количество</th>
+                                    <th>Категория</th>
                                 </tr>
                                 </thead>
-                                <tfoot>
-                                <tr>
-                                    <th>Название</th>
-                                    <th>Описание</th>
-                                </tr>
-                                </tfoot>
+{#                                <tfoot>#}
+{#                                <tr>#}
+{#                                    <th>Название</th>#}
+{#                                    <th>Описание</th>#}
+{#                                    <th>Цена</th>#}
+{#                                    <th>Количество</th>#}
+{#                                    <th>Категория</th>#}
+{#                                </tr>#}
+{#                                </tfoot>#}
                                 <tbody>
-                                {% for category in categories %}
+                                {% for product in products %}
                                     <tr>
-                                        <td><a href="{% url 'admins:admins_category_update' category.id %}"
-                                               style="color: dodgerblue">{{ category.name }}</a>
+                                        <td><a href="{% url 'admins:admins_product_update' product.id %}"
+                                               style="color: dodgerblue">{{ product.name }}</a>
                                         </td>
-                                        <td>{{ category.description }}</td>
+                                        <td>{{ product.description }}</td>
+                                        <td>{{ product.price }}</td>
+                                        <td>{{ product.quantity }}</td>
+                                        <td>{{ product.category }}</td>
                                     </tr>
                                 {% endfor %}
                                 </tbody>
@@ -39,8 +48,8 @@
                         </div>
                     </div>
                     <div class="card-footer">
-                        <a href="{% url 'admins:admins_category_create' %}">
-                            <button class="btn btn-success">Создать категорию</button>
+                        <a href="{% url 'admins:admins_product_create' %}">
+                            <button class="btn btn-success">Создать продукт</button>
                         </a>
                     </div>
                 </div>
