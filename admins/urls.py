@@ -13,12 +13,14 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
-from django.urls import path
+from django.urls import path, include
 
 from .views import index, UserUpdateView, UserListView, UserCreateView, UserDeleteView, CategoryListView, \
-    CategoriesCreateView, CategoriesUpdateView, CategoriesDeleteView
+    CategoryCreateView, CategoryUpdateView, CategoryDeleteView, ProductCreateView, ProductListView, \
+    ProductUpdateView, ProductDeleteView
 
 app_name = 'admins'
+
 urlpatterns = [
     path('', index, name='index'),
     path('users/', UserListView.as_view(), name='admins_user'),
@@ -26,13 +28,13 @@ urlpatterns = [
     path('users-update/<int:pk>/', UserUpdateView.as_view(), name='admins_user_update'),
     path('users-delete/<int:pk>/', UserDeleteView.as_view(), name='admins_user_delete'),
 
-    path('categories/', CategoryListView.as_view(), name='admins_categories'),
-    path('categories-create/', CategoriesCreateView.as_view(), name='admins_categories_create'),
-    path('categories-update/<int:pk>/', CategoriesUpdateView.as_view(), name='admins_categories_update'),
-    path('categories-delete/<int:pk>/', CategoriesDeleteView.as_view(), name='admins_categories_delete'),
+    path('category/', CategoryListView.as_view(), name='admins_category'),
+    path('category_create/', CategoryCreateView.as_view(), name='admins_category_create'),
+    path('category_update/<int:pk>/', CategoryUpdateView.as_view(), name='admins_category_update'),
+    path('category_delete/<int:pk>/', CategoryDeleteView.as_view(), name='admins_category_delete'),
 
-    # path('categories-create/', admins_categories_create, name='categories_create'),
-    # path('categories-update/<int:pk>/', admins_categories_update, name='categories_update'),
-    # path('categories/delete/<int:pk>/', admins_categories_delete, name='categories_delete'),
-
+    path('products/', ProductListView.as_view(), name='admins_product'),
+    path('products-create/', ProductCreateView.as_view(), name='admins_product_create'),
+    path('products-update/<int:pk>/', ProductUpdateView.as_view(), name='admins_product_update'),
+    path('products-delete/<int:pk>/', ProductDeleteView.as_view(), name='admins_product_delete'),
 ]
