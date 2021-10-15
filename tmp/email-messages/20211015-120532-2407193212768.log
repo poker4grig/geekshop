@@ -1,0 +1,14 @@
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Subject: 
+ =?utf-8?b?0JTQu9GPINCw0LrRgtC40LLQsNGG0LjQuCDRg9GH0LXRgtC90L7QuSDQt9Cw0L8=?=
+ =?utf-8?b?0LjRgdC4IGFzZCDQv9C10YDQtdC50LTQuNGC0LUg0L/QviDRgdGB0YvQu9C60LU=?=
+From: django
+To: asd@mail.ru
+Date: Fri, 15 Oct 2021 09:05:32 -0000
+Message-ID: <163428873223.11652.980641486321040335@LAPTOP-RI9QA43J>
+
+Для подтверждения учетной записи asd на портале перейдите по ссылке: 
+ http:/localhost:8000/users/verify/asd@mail.ru/9ff1762c4d8c7fd5ebae68e2acde4b151c38ffec/
+-------------------------------------------------------------------------------
