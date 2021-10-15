@@ -29,6 +29,5 @@ def products(request, category_id=None, page_id=1):
     context = {
         'title': 'Каталог',
         'categorys': ProductCategory.objects.all(),
-        'clear_categorys': '/products/',
         'products': product_paginator}
     return render(request, 'mainapp/products.html', context)
