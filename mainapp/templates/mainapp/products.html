@@ -80,10 +80,14 @@
                                     <h5>{{ item.price }} руб.</h5>
                                     <p class="card-text">{{ item.description }}</p>
                                 </div>
-                                <div class="card-footer text-center">
-                                    <a href="{% url 'baskets:basket' item.id %}" class="btn btn-outline-success">Отправить
-                                        в корзину</a>
-                                </div>
+                                <form action="{% url 'baskets:basket' product_id=item.id %}" method="post">
+                                    {% csrf_token %}
+                                    <div class="card-footer text-center">
+                                        <button type="submit" class="btn btn-outline-success">Отправить
+                                            в корзину
+                                        </button>
+                                    </div>
+                                </form>
                             </div>
                         </div>
                     {% endfor %}
