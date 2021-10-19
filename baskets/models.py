@@ -26,3 +26,13 @@ class Basket(models.Model):
         baskets = Basket.objects.filter(user=self.user)
         return sum(basket.quantity for basket in baskets)
 
+    # @staticmethod
+    # def total_summ(user):
+    #     baskets = Basket.objects.filter(user=user)
+    #     return sum(basket.summ() for basket in baskets)
+    #
+    # @staticmethod
+    # def total_quantity(user):
+    #     baskets = Basket.objects.filter(user=user)
+    #     return sum(basket.quantity for basket in baskets)
+
