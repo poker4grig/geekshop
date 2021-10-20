@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'users',
     'baskets',
     'admins',
+    'social_django',
 ]
 
 MIDDLEWARE = [
@@ -163,4 +164,20 @@ EMAIL_FILE_PATH = 'tmp/email-messages/'
 # EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER')
 # EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')
 # EMAIL_USE_SSL = True
+
+# ID приложения
+# 7980544
+# Защищённый ключ
+# BbB6MrPTv9NShkTN2Db4
+# Сервисный ключ доступа e5ccc529e5ccc529e5ccc5290ee5b50329ee5cce5ccc52984bcf45f8c1e36d448a8652e
+
+SOCIAL_AUTH_VK_OAUTH2_KEY = '7980544'
+SOCIAL_AUTH_VK_OAUTH2_SECRET = 'BbB6MrPTv9NShkTN2Db4'
+SOCIAL_AUTH_VK_OAUTH2_API_VERSION = '5.131'
+
+
+AUTHENTICATION_BACKENDS = (
+    'django.contrib.auth.backends.ModelBackend',
+    'social_core.backends.vk.VKOAuth2',
+)
 
