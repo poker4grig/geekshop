@@ -11,7 +11,7 @@ from django.views.generic import ListView, FormView, UpdateView
 
 from baskets.models import Basket
 from geekshop.mixin import BaseClassContextMixin, CustomDispatchMixin, UserDispatchMixin
-from users.forms import UserLoginForm, UserRegisterForm, UserProfileForm
+from users.forms import UserLoginForm, UserRegisterForm, UserProfileForm, UserProfileEditForm
 from users.models import User
 
 
@@ -73,15 +73,17 @@ class ProfileFormView(UpdateView, BaseClassContextMixin, UserDispatchMixin):
     # def dispatch(self, request, *args, **kwargs):
     #     return super(ProfileFormView, self).dispatch(request, *args, **kwargs)
     #
-    # комментируем, т.к. есть контекстный процессор
-    # def get_context_data(self, **kwargs):
-    #     context = super(ProfileFormView, self).get_context_data(**kwargs)
-    #     context['baskets'] = Basket.objects.filter(user=self.request.user)
-    #     return context
+    # комментируем get_context_data, т.к. есть контекстный процессор
+    def get_context_data(self, **kwargs):
+        context = super(ProfileFormView, self).get_context_data(**kwargs)
+        context['profile'] = UserProfileEditForm(instance=self.request.user.userprofile)
+        return context
 
     def post(self, request, *args, **kwargs):
-        form = self.form_class(data=request.POST, files=request.FILES, instance=self.get_object())
-        if form.is_valid():
+        form = UserProfileForm(data=request.POST, files=request.FILES, instance=request.user)
+        form_edit = UserProfileEditForm(data=request.POST, instance=request.user.userprofile)
+        if form.is_valid() and form_edit.is_valid():
+            # form_edit.save()
             form.save()
             return redirect(self.success_url)
         return redirect(self.success_url)
@@ -130,7 +132,7 @@ def verify(request, email, activation_key):
             user.activation_key_created = None
             user.is_active = True
             user.save()
-            auth.login(request, user)
+            auth.login(request, user, backend='django.contrib.auth.backends.ModelBackend')
         return render(request, 'users/verification.html')
     except Exception as e:
         return HttpResponseRedirect(reverse('index'))
