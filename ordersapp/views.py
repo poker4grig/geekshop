@@ -1,7 +1,7 @@
 from django.db import transaction
 from django.forms import inlineformset_factory
 from django.http import HttpResponseRedirect
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import get_object_or_404
 
 # Create your views here.
 from django.urls import reverse_lazy, reverse
@@ -9,7 +9,7 @@ from django.views.generic import ListView, CreateView, UpdateView, DeleteView, D
 
 from geekshop.mixin import BaseClassContextMixin
 from ordersapp.forms import OrderItemForm
-from ordersapp.models import Order, OrderItems
+from ordersapp.models import Order, OrderItem
 from baskets.models import Basket
 
 
@@ -29,14 +29,14 @@ class OrderCreate(CreateView):
         context = super(OrderCreate, self).get_context_data(**kwargs)
         context['title'] = 'GeekShop | Создать заказ'
 
-        OrderFormSet = inlineformset_factory(Order, OrderItems, form=OrderItemForm, extra=1)
+        OrderFormSet = inlineformset_factory(Order, OrderItem, form=OrderItemForm, extra=1)
 
         if self.request.POST:
             formset = OrderFormSet(self.request.POST)
         else:
             basket_items = Basket.objects.filter(user=self.request.user)
             if basket_items:
-                OrderFormSet = inlineformset_factory(Order, OrderItems, form=OrderItemForm, extra=basket_items.count())
+                OrderFormSet = inlineformset_factory(Order, OrderItem, form=OrderItemForm, extra=basket_items.count())
                 formset = OrderFormSet()
 
                 for num, form in enumerate(formset):
@@ -76,7 +76,7 @@ class OrderUpdate(UpdateView):
         context = super(OrderUpdate, self).get_context_data(**kwargs)
         context['title'] = 'GeekShop | Обновление заказа'
 
-        OrderFormSet = inlineformset_factory(Order, OrderItems, form=OrderItemForm, extra=1)
+        OrderFormSet = inlineformset_factory(Order, OrderItem, form=OrderItemForm, extra=1)
 
         if self.request.POST:
             formset = OrderFormSet(self.request.POST, instance=self.object)

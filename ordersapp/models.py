@@ -10,7 +10,6 @@ from mainapp.models import Product
 
 
 class Order(models.Model):
-
     FORMING = 'FM'
     SENT_TO_PROCEED = 'STP'
     PROCEEDED = 'PRD'
@@ -55,7 +54,7 @@ class Order(models.Model):
         self.save()
 
 
-class OrderItems(models.Model):
+class OrderItem(models.Model):
     order = models.ForeignKey(Order, verbose_name='заказ', related_name='orderitems', on_delete=models.CASCADE)
     product = models.ForeignKey(Product, verbose_name='продукты', on_delete=models.CASCADE)
     quantity = models.PositiveIntegerField(verbose_name='количество', default=0)
@@ -64,28 +63,22 @@ class OrderItems(models.Model):
         return self.product.price * self.quantity
 
     @staticmethod
-    def det_item(pk):
-        return OrderItems.objects.get(pk=pk).quantity
+    def get_item(pk):
+        return OrderItem.objects.get(pk=pk).quantity
 
 
-@receiver(pre_delete, sender=Basket)
-@receiver(pre_delete, sender=OrderItems)
-def product_quantity_update_delete(sender, instance, **kwargs):
-    instance.product.quantity += instance.quantity
-    instance.save()
-
-
-@receiver(pre_save, sender=Basket)
-@receiver(pre_save, sender=OrderItems)
-def product_quantity_update_delete(sender, instance, **kwargs):
-    if instance.pk:
-        instance.product.quantity -= instance.quantity - instance.get_item(int(instance.pk))
-    else:
-        instance.product.quantity -= instance.quantity
-    instance.product.save()
-
-
-
-
-
-
+# @receiver(pre_delete, sender=Basket)
+# @receiver(pre_delete, sender=OrderItem)
+# def product_quantity_update_delete(sender, instance, **kwargs):
+#     instance.product.quantity += instance.quantity
+#     instance.save()
+#
+#
+# @receiver(pre_save, sender=Basket)
+# @receiver(pre_save, sender=OrderItem)
+# def product_quantity_update_delete(sender, instance, **kwargs):
+#     if instance.pk:
+#         instance.product.quantity -= instance.quantity - instance.get_item(int(instance.pk))
+#     else:
+#         instance.product.quantity -= instance.quantity
+#     instance.product.save()
