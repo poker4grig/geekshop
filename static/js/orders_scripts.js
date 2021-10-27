@@ -27,4 +27,56 @@ window.onload = function () {
 
     console.info('PRICE', price_arr)
     console.info('QUANTITY', quantity_arr)
+
+    $('.order_form').on('click', 'input[type=number]', function (){
+        let target = event.target
+        orderitem_num = parseInt(target.name.replace('orderitems-','').replace('-quantity',''));
+        console.log(orderitem_num)
+        console.log(price_arr[orderitem_num])
+        if (price_arr[orderitem_num]) {
+            orderitem_quantity = parseInt(target.value)
+            delta_quantity = orderitem_quantity - quantity_arr[orderitem_num];
+            quantity_arr[orderitem_num] = orderitem_quantity;
+            orderSummerUpdate(price_arr[orderitem_num], delta_quantity)
+        }
+
+    });
+
+    $('.order_form').on('click', 'input[type=checkbox]', function (){
+        let target = event.target
+        orderitem_num = parseInt(target.name.replace('orderitems-','').replace('-DELETE',''));
+        console.log(orderitem_num);
+        console.log(price_arr[orderitem_num]);
+        if (target.checked) {
+            delta_quantity = -quantity_arr[orderitem_num]
+        } else {
+            delta_quantity = quantity_arr[orderitem_num]
+        }
+        orderSummerUpdate(price_arr[orderitem_num], delta_quantity)
+    });
+
+
+
+    function orderSummerUpdate(orderitem_price, delta_quantity) {
+        delta_cost = orderitem_price * delta_quantity
+
+        order_total_cost = Number((order_total_cost + delta_cost).toFixed(2));
+        order_total_quantity = order_total_quantity + delta_quantity;
+
+        $('.order_total_quantity').html(order_total_quantity.toString());
+        $('.order_total_cost').html(order_total_cost.toString() + ',00');
+    }
+    $('.formset_row').formset({
+        addText: 'добавить продукт',
+        deleteText: 'удалить',
+        prefix: 'orderitems',
+        removed: deleteOrderItem
+    });
+    function deleteOrderItem(row){
+        let target_name = row[0].querySelector('input[type="number"]').name;
+        orderitem_num = parseInt(target_name.replace('orderitems-','').replace('-quantity',''));
+        delta_quantity = -quantity_arr[orderitem_num];
+        orderSummerUpdate(price_arr[orderitem_num], delta_quantity)
+    }
+
 }
