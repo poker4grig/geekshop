@@ -1,15 +1,17 @@
+import requests
 from django.db import transaction
 from django.forms import inlineformset_factory
-from django.http import HttpResponseRedirect
-from django.shortcuts import render, get_object_or_404
+from django.http import HttpResponseRedirect, JsonResponse
+from django.shortcuts import get_object_or_404
 
 # Create your views here.
 from django.urls import reverse_lazy, reverse
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView, DetailView
 
 from geekshop.mixin import BaseClassContextMixin
+from mainapp.models import Product
 from ordersapp.forms import OrderItemForm
-from ordersapp.models import Order, OrderItems
+from ordersapp.models import Order, OrderItem
 from baskets.models import Basket
 
 
@@ -29,21 +31,20 @@ class OrderCreate(CreateView):
         context = super(OrderCreate, self).get_context_data(**kwargs)
         context['title'] = 'GeekShop | Создать заказ'
 
-        OrderFormSet = inlineformset_factory(Order, OrderItems, form=OrderItemForm, extra=1)
+        OrderFormSet = inlineformset_factory(Order, OrderItem, form=OrderItemForm, extra=1)
 
         if self.request.POST:
             formset = OrderFormSet(self.request.POST)
         else:
             basket_items = Basket.objects.filter(user=self.request.user)
             if basket_items:
-                OrderFormSet = inlineformset_factory(Order, OrderItems, form=OrderItemForm, extra=basket_items.count())
+                OrderFormSet = inlineformset_factory(Order, OrderItem, form=OrderItemForm, extra=basket_items.count())
                 formset = OrderFormSet()
 
                 for num, form in enumerate(formset):
                     form.initial['product'] = basket_items[num].product
                     form.initial['quantity'] = basket_items[num].quantity
-                    form.initial['price'] = basket_items[num].price
-
+                    form.initial['price'] = basket_items[num].product.price
                 basket_items.delete()
             else:
                 formset = OrderFormSet()
@@ -77,7 +78,7 @@ class OrderUpdate(UpdateView):
         context = super(OrderUpdate, self).get_context_data(**kwargs)
         context['title'] = 'GeekShop | Обновление заказа'
 
-        OrderFormSet = inlineformset_factory(Order, OrderItems, form=OrderItemForm, extra=1)
+        OrderFormSet = inlineformset_factory(Order, OrderItem, form=OrderItemForm, extra=1)
 
         if self.request.POST:
             formset = OrderFormSet(self.request.POST, instance=self.object)
@@ -121,3 +122,22 @@ def order_forming_complete(request, pk):
     order.status = Order.SENT_TO_PROCEED
     order.save()
     return HttpResponseRedirect(reverse('orders:list'))
+
+
+def payment_result(request):
+    status = request.GET.get('ik_inv_st')
+    if status == 'success':
+        order_pk = request.GET.get('ik_pm_no')
+        order_item = Order.objects.get(pk=order_pk)
+        order_item.status = Order.PAID
+        order_item.save()
+    return HttpResponseRedirect(reverse('orders:list'))
+
+
+def get_product_price(request, pk):
+    if request.is_ajax():
+        product = Product.objects.get(pk=pk)
+        if product:
+            return JsonResponse({'price': product.price})
+
+    return JsonResponse({'price': 0})
