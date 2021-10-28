@@ -16,7 +16,7 @@ Including another URLconf
 from django.urls import path
 
 from .views import OrderCreate, OrderList, OrderDetail, OrderUpdate, OrderDelete, order_forming_complete, \
-    payment_result
+    payment_result, get_product_price
 
 app_name = 'ordersapp'
 urlpatterns = [
@@ -27,5 +27,6 @@ urlpatterns = [
     path('delete/<int:pk>/', OrderDelete.as_view(), name='delete'),
     path('forming_complete/<int:pk>/', order_forming_complete, name='forming_complete'),
     path('payment/result/', payment_result, name='payment_result'),
+    path('product/<int:pk>/price/', get_product_price, name='product_price'),
 
 ]
