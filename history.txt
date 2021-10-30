@@ -1,0 +1,166 @@
+    1  exit
+    2  ssh-keygen
+    3  cat /root/.ssh/id_rsa.pub
+    4  apt update 
+    5  apt upgrate
+    6  apt install nginx
+    7  apt install python3-venv
+    8  apt install git
+    9  apt install postgesql postgresql-contrib
+   10  apt install postgresql postgresql-contrib
+   11  nano /etc/postgresql/12/main/pg_hba.conf 
+   12  fg
+   13  nano /etc/postgresql/12/main/pg_hba.conf 
+   14  system
+   15  systemctl restart postgresql
+   16  systemctl status postgresql
+   17  useradd -g www-data -m django
+   18  cd /home/django/
+   19  ls
+   20  ll
+   21  ls
+   22  python3 -m venv venv
+   23  source venv/bin/activate
+   24  git clone git@github.com:poker4grig/geekshop.git
+   25  ls
+   26  cd geekshop/
+   27  ls
+   28  cd ..
+   29  cd django/geekshop/
+   30  ls
+   31  cd
+   32  cd ..
+   33  ls
+   34  cd django/geekshop/
+   35  cd /home/django/geekshop/
+   36  ls
+   37  git branch 
+   38  git checkout part_2_lesson_5
+   39  cd ..
+   40  cd geekshop/
+   41  git checkout part_2_lesson_5
+   42  ls
+   43  cd ..
+   44  git checkout part_2_lesson_5
+   45  cd geekshop/
+   46  l]s
+   47  ls
+   48  git branch 
+   49  git checkout
+   50  git checkout part_2_lesson_5
+   51  git checkout part_2_lesson_4
+   52  git branch 
+   53  git checkout part_2_lesson_5
+   54  git checkout master
+   55  git checkout part_2_lesson_5
+   56  ls
+   57  cd geekshop/
+   58  ls
+   59  cd ..
+   60  ls
+   61  pip install -r requirements.txt 
+   62  pip install wheel
+   63  pip install -r requirements.txt 
+   64  python --version
+   65  whoami
+   66  ll
+   67  ls
+   68  cd ~
+   69  cd /home/django/geekshop/
+   70  ls
+   71  source venv/bin/activate
+   72  python3 -m venv venv
+   73  cd ..
+   74  python3 -m venv venv
+   75  source venv/bin/activate
+   76  pip install -r requirements.txt 
+   77  cd geekshop/
+   78  pip install -r requirements.txt 
+   79  pip install gunicorn
+   80  exit
+   81  nano /etc/postgresql/12/main/pg_hba.conf 
+   82  source venv/bin/activate
+   83  python3 -m venv venv
+   84  pwd
+   85  cd /home/django/
+   86  pwd
+   87  python3 -m venv venv
+   88  source venv/bin/activate
+   89  psql -U postgres
+   90  git branch 
+   91  cd geekshop/
+   92  git branch 
+   93  ls
+   94  python manage.py migrate
+   95  python manage.py fill_db
+   96  python manage.py runserver 0.0.0.0:8000
+   97  nano /etc/systemd/system/gunicorn.service
+   98  systemctl enable gunicorn
+   99  systemctl start gunicorn
+  100  systemctl status gunicorn
+  101  chown
+  102  chown -R django /home/django/
+  103  systemctl restart gunicorn
+  104  systemctl status gunicorn
+  105  pwd
+  106  cd /home/django/
+  107  source venv/bin/activate
+  108  cd geekshop/
+  109  nano /etc/nginx/sites-available/geekshop
+  110  source venv/bin/activate
+  111  nano /etc/nginx/sites-available/geekshop
+  112  pwd
+  113  cd /home/django/
+  114  ls
+  115  cd geekshop/
+  116  ln -s /etc/nginx/sites-available/geekshop /etc/nginx/sites-enabled/
+  117  rm /etc/nginx/sites-enabled/default 
+  118  systemctl restart gunicorn
+  119  systemctl restart nginx
+  120  systemctl status nginx
+  121  systemctl status gunicorn
+  122  nginx -t
+  123  tail -f /var/log/nginx/error.log 
+  124  systemctl status gunicorn
+  125  systemctl status nginx
+  126  systemctl restart nginx
+  127  systemctl restart gunicorn
+  128  nano /etc/nginx/sites-available/geekshop
+  129  systemctl restart gunicorn
+  130  systemctl enable gunicorn
+  131  systemctl status gunicorn
+  132  systemctl restart nginx
+  133  nano /etc/nginx/sites-available/geekshop
+  134  nano /etc/systemd/system/gunicorn.service
+  135  systemctl restart nginx
+  136  systemctl restart gunicorn
+  137  nano /etc/systemd/system/gunicorn.service
+  138  ls
+  139  cd geekshop/
+  140  ls
+  141  cd ..
+  142  nano /etc/systemd/system/gunicorn.service
+  143  nano /etc/nginx/sites-available/geekshop
+  144  nano /etc/systemd/system/gunicorn.service
+  145  systemctl restart gunicorn
+  146  systemctl daemon-reload
+  147  systemctl restart gunicorn
+  148  systemctl restart nginx
+  149  systemctl status nginx
+  150  systemctl status gunicorn
+  151  nano /etc/systemd/system/gunicorn.service
+  152  nano /etc/nginx/sites-available/geekshop
+  153  systemctl status nginx
+  154  systemctl status gunicorn
+  155  systemctl restart nginx
+  156  systemctl restart gunicorn
+  157  source venv/bin/activate
+  158  nano /etc/nginx/sites-available/geekshop
+  159  nano /etc/systemd/system/gunicorn.service
+  160  systemctl restart gunicorn
+  161  systemctl restart nginx
+  162  systemctl status nginx
+  163  exit
+  164  source venv/bin/activate
+  165  history
+  166  history > /tmp/history.txt
