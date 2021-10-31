@@ -1,5 +1,7 @@
 .env
 .idea
 pycache/ 
+__pycache__/
 db.sqlite3
 README.md
+.env_my
