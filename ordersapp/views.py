@@ -1,4 +1,5 @@
 import requests
+from django.contrib.auth.decorators import login_required
 from django.db import transaction
 from django.forms import inlineformset_factory
 from django.http import HttpResponseRedirect, JsonResponse
@@ -6,6 +7,7 @@ from django.shortcuts import get_object_or_404
 
 # Create your views here.
 from django.urls import reverse_lazy, reverse
+from django.utils.decorators import method_decorator
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView, DetailView
 
 from geekshop.mixin import BaseClassContextMixin
@@ -20,6 +22,10 @@ class OrderList(ListView):
 
     def get_queryset(self):
         return Order.objects.filter(user=self.request.user, is_active=True)
+
+    # @method_decorator(login_required())
+    # def dispatch(self, *args, **kwargs):
+    #     return super(ListView, self).dispatch(*args, **kwargs)
 
 
 class OrderCreate(CreateView):
@@ -106,6 +112,10 @@ class OrderUpdate(UpdateView):
 
         return super(OrderUpdate, self).form_valid(form)
 
+    # @method_decorator(login_required())
+    # def dispatch(self, *args, **kwargs):
+    #     return super(UpdateView, self).dispatch(*args, **kwargs)
+
 
 class OrderDelete(DeleteView):
     model = Order
@@ -141,3 +151,8 @@ def get_product_price(request, pk):
             return JsonResponse({'price': product.price})
 
     return JsonResponse({'price': 0})
+
+
+# @method_decorator(login_required())
+# def dispatch(self, *args, **kwargs):
+#     return super(DetailView, self).dispatch(*args, **kwargs)
