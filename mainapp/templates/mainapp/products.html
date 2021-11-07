@@ -75,7 +75,7 @@
                                 </a>
                                 <div class="card-body">
                                     <h4 class="card-title">
-                                        <a href="#">{{ item.name }}</a>
+                                        <a href="{% url 'products:detail' item.id %}">{{ item.name }}</a>
                                     </h4>
                                     <h5>{{ item.price }} руб.</h5>
                                     <p class="card-text">{{ item.description }}</p>
