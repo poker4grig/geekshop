@@ -92,10 +92,10 @@ class CategoryCreateView(CreateView, CustomDispatchMixin):
     model = ProductCategory
     template_name = 'admins/admin-categories-create.html'
     form_class = CategoryAdminEditForm
-    success_url = reverse_lazy('admins:admins_categories')
+    success_url = reverse_lazy('admins:admins_category')
 
     def get_context_data(self, *, object_list=None, **kwargs):
-        context = super(CategoriesCreateView, self).get_context_data(**kwargs)
+        context = super(CategoryCreateView, self).get_context_data(**kwargs)
         context['title'] = 'Админка | Создание категории'
         return context
 
@@ -105,10 +105,10 @@ class CategoryUpdateView(UpdateView, CustomDispatchMixin):
     template_name = 'admins/admin-categories-update-delete.html'
     form_class = CategoryAdminEditForm
     context_object_name = 'category'
-    success_url = reverse_lazy('admins:admins_categories')
+    success_url = reverse_lazy('admins:admins_category')
 
     def get_context_data(self, *, object_list=None, **kwargs):
-        context = super(CategoriesUpdateView, self).get_context_data(**kwargs)
+        context = super(CategoryUpdateView, self).get_context_data(**kwargs)
         context['title'] = 'Админка | Обновление категории'
         return context
 
@@ -116,15 +116,25 @@ class CategoryUpdateView(UpdateView, CustomDispatchMixin):
 class CategoryDeleteView(DeleteView, CustomDispatchMixin):
     model = ProductCategory
     template_name = 'admins/admin-categories-update-delete.html'
-    success_url = reverse_lazy('admins:admins_categories')
+    success_url = reverse_lazy('admins:admins_category')
 
     def delete(self, request, *args, **kwargs):
         self.object = self.get_object()
         if self.object.is_active:
+            self.object.product_set.update(is_active=False)
             self.object.is_active = False
         else:
+            self.object.product_set.update(is_active=True)
             self.object.is_active = True
         self.object.save()
+
+    # def delete(self, request, *args, **kwargs):
+    #     self.object = self.get_object()
+    #     if self.object.is_active:
+    #         self.object.is_active = False
+    #     else:
+    #         self.object.is_active = True
+    #     self.object.save()
         return HttpResponseRedirect(self.get_success_url())
 
 
@@ -147,7 +157,7 @@ class ProductCreateView(CreateView, CustomDispatchMixin):
     model = Product
     template_name = 'admins/admin-products-create.html'
     form_class = ProductAdminEditForm
-    success_url = reverse_lazy('admins:admins_products')
+    success_url = reverse_lazy('admins:admins_product')
 
     def get_context_data(self, **kwargs):
         context = super(ProductCreateView, self).get_context_data(**kwargs)
@@ -160,7 +170,7 @@ class ProductUpdateView(UpdateView, CustomDispatchMixin):
     template_name = 'admins/admin-products-update-delete.html'
     form_class = ProductAdminEditForm
     context_object_name = 'product'
-    success_url = reverse_lazy('admins:admins_products')
+    success_url = reverse_lazy('admins:admins_product')
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super(ProductUpdateView, self).get_context_data(**kwargs)
@@ -171,7 +181,7 @@ class ProductUpdateView(UpdateView, CustomDispatchMixin):
 class ProductDeleteView(DeleteView, CustomDispatchMixin):
     model = Product
     template_name = 'admins/admin-products-update-delete.html'
-    success_url = reverse_lazy('admins:admins_products')
+    success_url = reverse_lazy('admins:admins_product')
 
     def delete(self, request, *args, **kwargs):
         self.object = self.get_object()

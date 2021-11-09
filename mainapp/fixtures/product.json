@@ -7,7 +7,7 @@
       "image": "product_images/Black-Nike-Heritage-backpack.png",
       "description": "Плотная ткань. Легкий материал.",
       "price": "2340.000",
-      "quantity": 3,
+      "quantity": 5,
       "category": 2
     }
   },
@@ -43,7 +43,7 @@
       "image": "product_images/Adidas-hoodie.png",
       "description": "Мягкая ткань для свитшотов. Стиль и комфорт – это образ жизни.",
       "price": "6090.000",
-      "quantity": 4,
+      "quantity": 6,
       "category": 2
     }
   },
@@ -55,7 +55,7 @@
       "image": "product_images/Blue-jacket-The-North-Face.png",
       "description": "Гладкая ткань. Водонепроницаемое покрытие. Легкий и теплый пуховый наполнитель.",
       "price": "23725.000",
-      "quantity": 0,
+      "quantity": 10,
       "category": 2
     }
   },
@@ -67,7 +67,7 @@
       "image": "product_images/Brown-sports-oversized-top-ASOS-DESIGN.png",
       "description": "Материал с плюшевой текстурой. Удобный и мягкий.",
       "price": "3390.000",
-      "quantity": 6,
+      "quantity": 16,
       "category": 2
     }
   }

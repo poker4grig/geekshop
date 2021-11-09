@@ -6,7 +6,9 @@ from django.template.loader import render_to_string
 from django.views.generic import UpdateView, CreateView, DeleteView
 from django.urls import reverse_lazy
 from geekshop.mixin import UserDispatchMixin
-from mainapp.models import Product, ProductCategory
+from mainapp.models import Product
+from django.db import connection
+from django.db.models import F
 
 from baskets.models import Basket
 # Create your views here.
@@ -31,8 +33,12 @@ class BasketCreateView(CreateView, UserDispatchMixin):
                     Basket.objects.create(user=request.user, product=product, quantity=1)
                 else:
                     basket = baskets.first()
-                    basket.quantity += 1
+                    # basket.quantity += 1
+                    basket.quantity = F('quantity') + 1
                     basket.save()
+
+                    update_queries = list(filter(lambda x: 'UPDATE' in x['sql'], connection.queries))
+                    print(f'basket_add {update_queries} ')
 
         return redirect(self.success_url)
 
