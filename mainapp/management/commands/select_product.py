@@ -9,6 +9,6 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         products = Product.objects.filter(Q(category__name='Обувь') | Q(category__name='Аксессуары'))
         print(products)
-        db_profile_by_type('learn db', '', connection.queries)
+        db_profile_by_type('select product', '', connection.queries)
 
 
