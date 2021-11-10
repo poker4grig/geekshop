@@ -20,7 +20,7 @@
                                     <th>Цена</th>
                                     <th>Количество</th>
                                     <th>Категория</th>
-                                    <th>Активность</th>
+                                    <th>Статус</th>
                                     <th>Действие</th>
                                 </tr>
                                 </thead>
@@ -31,7 +31,7 @@
                                     <th>Цена</th>
                                     <th>Количество</th>
                                     <th>Категория</th>
-                                    <th>Активность</th>
+                                    <th>Статус</th>
                                     <th>Действие</th>
                                 </tr>
                                 </tfoot>
@@ -57,7 +57,7 @@
                                                   method="post">
                                                 {% csrf_token %}
                                                 <input class="btn btn-link" type="submit"
-                                                       value="Удалить">
+                                                       value="Удалить/Восстановить">
                                             </form>
                                         </td>
                                 {% endfor %}

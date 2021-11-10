@@ -17,6 +17,7 @@
                                 <tr>
                                     <th>Название</th>
                                     <th>Описание</th>
+                                    <th>Скидка</th>
                                     <th>Статус</th>
                                     <th>Действие</th>
                                 </tr>
@@ -25,6 +26,7 @@
                                 <tr>
                                     <th>Название</th>
                                     <th>Описание</th>
+                                    <th>Скидка</th>
                                     <th>Статус</th>
                                     <th>Действие</th>
                                 </tr>
@@ -36,6 +38,7 @@
                                                style="color: dodgerblue">{{ category.name }}</a>
                                         </td>
                                         <td>{{ category.description }}</td>
+                                        <td>{{ category.discount }}</td>
                                         <td class="text-center">
                                             {% if category.is_active %}
                                                 <i class="fas fa-check-circle"></i>
@@ -48,7 +51,7 @@
                                                   method="post">
                                                 {% csrf_token %}
                                                 <input class="btn btn-link" type="submit"
-                                                       value="Удалить">
+                                                       value="Удалить/Восстановить">
                                             </form>
                                         </td>
                                         </tr>

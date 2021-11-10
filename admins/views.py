@@ -1,9 +1,14 @@
 from django.contrib.auth.decorators import user_passes_test
+from django.db.models.signals import pre_save
+from django.dispatch import receiver
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.utils.decorators import method_decorator
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView
+
+from django.db import connection
+from django.db.models import F
 # Create your views here.
 from admins.forms import UserAdminRegisterForm, UserAdminProfileForm, ProductAdminEditForm, CategoryAdminEditForm
 from geekshop.mixin import CustomDispatchMixin
@@ -13,8 +18,6 @@ from mainapp.models import Product, ProductCategory
 
 def index(request):
     return render(request, 'admins/admin.html')
-
-
 #######################################################################################################################
 # users CBF
 
@@ -112,11 +115,25 @@ class CategoryUpdateView(UpdateView, CustomDispatchMixin):
         context['title'] = 'Админка | Обновление категории'
         return context
 
+    def form_valid(self, form):
+        if 'discount' in form.cleaned_data:
+            discount = form.cleaned_data['discount']
+            if discount:
+                self.object.product_set.update(price=F('price') * (1 - discount / 100))
+                db_profile_by_type(self.__class__, 'UPDATE', connection.queries)
+
+        return super().form_valid(form)
+
 
 class CategoryDeleteView(DeleteView, CustomDispatchMixin):
     model = ProductCategory
     template_name = 'admins/admin-categories-update-delete.html'
     success_url = reverse_lazy('admins:admins_category')
+
+    # def delete(self, request, *args, **kwargs):
+    #     self.object = self.get_object()
+    #     self.object.delete()
+    #     return HttpResponseRedirect(self.get_success_url())
 
     def delete(self, request, *args, **kwargs):
         self.object = self.get_object()
@@ -127,16 +144,14 @@ class CategoryDeleteView(DeleteView, CustomDispatchMixin):
             self.object.product_set.update(is_active=True)
             self.object.is_active = True
         self.object.save()
-
-    # def delete(self, request, *args, **kwargs):
-    #     self.object = self.get_object()
-    #     if self.object.is_active:
-    #         self.object.is_active = False
-    #     else:
-    #         self.object.is_active = True
-    #     self.object.save()
         return HttpResponseRedirect(self.get_success_url())
-
+        # def delete(self, request, *args, **kwargs):
+        #     self.object = self.get_object()
+        #     if self.object.is_active:
+        #         self.object.is_active = False
+        #     else:
+        #         self.object.is_active = True
+        #     self.object.save()
 
 ######################################################################################################################
 # products CBF
@@ -191,3 +206,22 @@ class ProductDeleteView(DeleteView, CustomDispatchMixin):
             self.object.is_active = True
         self.object.save()
         return HttpResponseRedirect(self.get_success_url())
+
+######################################################################################################################
+
+
+def db_profile_by_type(prefix, type, queries):
+    queries_list = list(filter(lambda x: type in x['sql'], queries))
+    print(f'db_profile {type} for {prefix}:')
+    [print(querie['sql']) for querie in queries_list]
+
+
+@receiver(pre_save, sender=ProductCategory)
+def product_is_active_update_product_category_save(sender, instance, **kwargs):
+    if instance.pk:
+        if instance.is_active:
+            instance.product_set.update(is_active=True)
+        else:
+            instance.product_set.update(is_active=False)
+
+        db_profile_by_type(sender, 'UPDATE', connection.queries)
