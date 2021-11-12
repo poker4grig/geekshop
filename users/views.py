@@ -21,6 +21,15 @@ class LoginListView(LoginView, BaseClassContextMixin):
     title = 'Geekshop | Авторизация'
     success_url = reverse_lazy('index')
 
+    # success_url = 'http://127.0.0.1:8000/'
+
+    def get(self, request, *args, **kwargs):
+        sup = super(LoginListView, self).get(request, *args, **kwargs)
+        if request.user.is_authenticated:
+            return HttpResponseRedirect(reverse_lazy(self.success_url))
+            # return HttpResponseRedirect(self.success_url)
+        return sup
+
 
 # def login(request):
 #     if request.method == 'POST':
@@ -54,7 +63,9 @@ class RegisterListView(FormView, BaseClassContextMixin):
         if form.is_valid():
             user = form.save()
             if self.send_verify_link(user):
-                messages.success(request, 'Поздравляем, вы успешно зарегистрировались!')
+                messages.success(request,
+                                 'Поздравляем, вы успешно зарегистрировались! Письмо с активацией было отправлено '
+                                 'вам на почту')
             return redirect(self.success_url)
         return redirect(self.success_url)
 
@@ -69,6 +80,7 @@ class RegisterListView(FormView, BaseClassContextMixin):
     @staticmethod
     def verify(request, email, activation_key):
         try:
+            # user = User.objects.get(email=email)
             user = User.objects.get(email=email)
             if user and user.activation_key == activation_key and not user.is_activation_key_expired():
                 user.activation_key = ''
@@ -133,9 +145,6 @@ class ProfileFormView(UpdateView, BaseClassContextMixin, UserDispatchMixin):
 class LogoutListView(LogoutView):
     template_name = 'mainapp/index.html'
 
-
 # def logout(request):
 #     auth.logout(request)
 #     return HttpResponseRedirect(reverse('index'))
-
-

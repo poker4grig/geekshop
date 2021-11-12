@@ -50,9 +50,9 @@ class Command(BaseCommand):
             )).order_by('action_order', 'total_price').select_related()
 
         t_list = PrettyTable(['Заказ', 'Товар', 'Скидка', 'Время'])
-        t_list.align = 'l'
+        t_list.align = 'c'
         for orderitem in total_orders:
-            t_list.add_row([f'{orderitem.action_order} заказ № {orderitem.pk}', f'{orderitem.product.name:15}',
+            t_list.add_row([f'{orderitem.action_order} заказ № {orderitem.pk}', f'{orderitem.product.name:3}',
                             f'{abs(orderitem.total_price):6.2f} руб.',
                             orderitem.order.update - orderitem.order.created])
         print(t_list)
