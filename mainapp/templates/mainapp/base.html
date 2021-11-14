@@ -14,6 +14,10 @@
     <title>{{ title|title }}</title>
 
     <!-- Bootstrap core CSS -->
+{#    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/js/all.min.js"#}
+{#            crossorigin="anonymous"></script>#}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/js/all.min.js"
+            crossorigin="anonymous"></script>
     <link href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
 
     {% block css %}
@@ -96,15 +100,19 @@
 
 {% endblock %}
 <!-- Bootstrap core JavaScript -->
+{#<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"#}
+{#        crossorigin="anonymous"></script>#}
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+        crossorigin="anonymous"></script>
 <script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
 <script src="{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
 
 <!-- FontAwesome script -->
 <script src="{% static 'vendor/fontawesome/fontawesome-icons.js' %}" crossorigin="anonymous"></script>
-<script src="{% static 'js/baskets.js' %}"></script>
+
 <script src="{% static 'js/jquery.formset.js' %}"></script>
 <script src="{% static 'js/orders_scripts.js' %}"></script>
-
+<script src="{% static 'js/baskets.js' %}"></script>
 </body>
 
 </html>

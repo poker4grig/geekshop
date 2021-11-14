@@ -45,7 +45,12 @@
 {#                <h4 class="float-right">{{ variable|total_summ.user }} руб.</h4>#}
             </div>
         </div>
-        <button type="button" class="btn btn-success btn-lg float-right">Оформить</button>
+        <div class="order_add">
+            <form action="{% url 'orders:create' %}" >
+{#                {% csrf_token %}#}
+                <button name="order_add_button" type="submit" class="btn btn-success btn-lg float-right">Оформить</button>
+            </form>
+        </div>
     {% else %}
         <h4 class="mt-4 mb-3 text-center">Корзина пустая</h4>
     {% endif %}
