@@ -20,17 +20,21 @@
                                     <th>Цена</th>
                                     <th>Количество</th>
                                     <th>Категория</th>
+                                    <th>Статус</th>
+                                    <th>Действие</th>
                                 </tr>
                                 </thead>
-{#                                <tfoot>#}
-{#                                <tr>#}
-{#                                    <th>Название</th>#}
-{#                                    <th>Описание</th>#}
-{#                                    <th>Цена</th>#}
-{#                                    <th>Количество</th>#}
-{#                                    <th>Категория</th>#}
-{#                                </tr>#}
-{#                                </tfoot>#}
+                                <tfoot>
+                                <tr>
+                                    <th>Название</th>
+                                    <th>Описание</th>
+                                    <th>Цена</th>
+                                    <th>Количество</th>
+                                    <th>Категория</th>
+                                    <th>Статус</th>
+                                    <th>Действие</th>
+                                </tr>
+                                </tfoot>
                                 <tbody>
                                 {% for product in products %}
                                     <tr>
@@ -41,7 +45,21 @@
                                         <td>{{ product.price }}</td>
                                         <td>{{ product.quantity }}</td>
                                         <td>{{ product.category }}</td>
-                                    </tr>
+                                        <td class="text-center">
+                                            {% if product.is_active %}
+                                                <i class="fas fa-check-circle"></i>
+                                            {% else %}
+                                                <i class="fas fa-times-circle"></i>
+                                            {% endif %}
+                                        </td>
+                                        <td>
+                                            <form action="{% url 'admins:admins_product_delete' product.id %}"
+                                                  method="post">
+                                                {% csrf_token %}
+                                                <input class="btn btn-link" type="submit"
+                                                       value="Удалить/Восстановить">
+                                            </form>
+                                        </td>
                                 {% endfor %}
                                 </tbody>
                             </table>

@@ -8,7 +8,7 @@
                 <div class="card mb-4">
                     <div class="card-header">
                         <i class="fas fa-table mr-1"></i>
-                        Продукты
+                        Категории
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
@@ -17,14 +17,18 @@
                                 <tr>
                                     <th>Название</th>
                                     <th>Описание</th>
-                                    <th>Удалить</th>
+                                    <th>Скидка</th>
+                                    <th>Статус</th>
+                                    <th>Действие</th>
                                 </tr>
                                 </thead>
                                 <tfoot>
                                 <tr>
                                     <th>Название</th>
                                     <th>Описание</th>
-                                    <th>Удалить</th>
+                                    <th>Скидка</th>
+                                    <th>Статус</th>
+                                    <th>Действие</th>
                                 </tr>
                                 </tfoot>
                                 <tbody>
@@ -34,12 +38,23 @@
                                                style="color: dodgerblue">{{ category.name }}</a>
                                         </td>
                                         <td>{{ category.description }}</td>
-                                        <td class="delete_category">
-                                            <button style="color: #e4606d">
-                                                Удалить
-                                            </button>
+                                        <td>{{ category.discount }}</td>
+                                        <td class="text-center">
+                                            {% if category.is_active %}
+                                                <i class="fas fa-check-circle"></i>
+                                            {% else %}
+                                                <i class="fas fa-times-circle"></i>
+                                            {% endif %}
                                         </td>
-                                    </tr>
+                                        <td>
+                                            <form action="{% url 'admins:admins_category_delete' category.id %}"
+                                                  method="post">
+                                                {% csrf_token %}
+                                                <input class="btn btn-link" type="submit"
+                                                       value="Удалить/Восстановить">
+                                            </form>
+                                        </td>
+                                        </tr>
                                 {% endfor %}
                                 </tbody>
                             </table>
